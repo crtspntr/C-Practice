@@ -1,0 +1,11 @@
+build/
+.gradle
+*.exe
+*.dll
+*.so
+*.dylib
+*.o
+*.obj
+*.a
+.vscode/
+!.vscode/settings.json
