@@ -1,0 +1,38 @@
+name: Grade Assignment
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  grade:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake g++ git
+
+      - name: Build and Test
+        id: test
+        run: |
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+          cmake --build build
+          ctest --test-dir build --output-on-failure
+
+      - name: Post Grade
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ "${{ steps.test.outcome }}" == "success" ]; then
+            STATUS="PASS"
+          else
+            STATUS="FAIL"
+          fi
+          gh pr comment ${{ github.event.pull_request.number }} --body "**Teacher grade (GitHub Action)**\n- ctests: $STATUS\n- Notes: Automated check complete. Please review logic and style."

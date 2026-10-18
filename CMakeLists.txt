@@ -18,10 +18,14 @@ target_include_directories(cpppractice_lib PUBLIC include)
 
 include(CTest)
 if(BUILD_TESTING)
-  add_executable(cpppractice_tests tests/calc_test.cpp)
-  target_link_libraries(cpppractice_tests PRIVATE cpppractice_lib GTest::gtest_main)
-  include(GoogleTest)
-  gtest_discover_tests(cpppractice_tests)
+  file(GLOB_RECURSE TEST_SOURCES "tests/*.cpp")
+  foreach(test_source ${TEST_SOURCES})
+    get_filename_component(test_name ${test_source} NAME_WE)
+    add_executable(${test_name} ${test_source})
+    target_link_libraries(${test_name} PRIVATE cpppractice_lib GTest::gtest_main)
+    gtest_discover_tests(${test_name})
+  endforeach()
 endif()
 
 enable_testing()
+

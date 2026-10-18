@@ -1,23 +1,23 @@
-# Assignment 1: clamp & fibonacci
+# Assignment 1: Basic Booleans
+
+## Goal
+Apply knowledge from W3Schools C++ tutorials using interleaving.
+
+## The Cognitive Loop
+- **Prime (Upcoming)**: If...Else
+- **Review (Past)**: Data Types, I/O
+- **Core Focus**: Basic Booleans
 
 ## Task
-Implement/modify:
-
-- `fibonacci(int n)` for `n >= 0`
-- `clamp_value(value, low, high)` so that value is constrained into `[low, high]`
+Implement the required functions in `src/calc.cpp`. Ensure you use the review topics to solve the core problem.
 
 ## Requirements
-- All CTest tests pass.
-- Code compiles cleanly (`-Wall -Wextra -Wpedantic`).
-- Explain what improved and any edge cases.
+- All CTest tests must pass.
+- Code must compile cleanly.
 
 ## Local workflow
 1. Create a branch: `git checkout -b feature/assignment1`
 2. Edit `src/calc.cpp`.
-3. Run tests: `ctest --test-dir build`
-4. Push branch and open a PR:
-   ```
-   git push origin feature/assignment1
-   gh pr create --title "Assignment 1" --body "..."
-   ```
-5. Grade locally: `python scripts/grade.py assignment1 <pr_number>`
+3. Run tests: `cmake --build build && ctest --test-dir build`
+4. Push and open a PR: `gh pr create`
+5. Grade: `python scripts/grade.py assignment1 <pr_number>`
